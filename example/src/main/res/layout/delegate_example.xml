@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context="me.sheepyang.myec.MainActivity">
+    tools:context="me.sheepyang.myec.ExampleActivity">
 
     <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/icon_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="{fa-users}"
+        android:text="{fa-coffee}"
         tools:ignore="HardcodedText"/>
 
     <com.joanzapata.iconify.widget.IconTextView
