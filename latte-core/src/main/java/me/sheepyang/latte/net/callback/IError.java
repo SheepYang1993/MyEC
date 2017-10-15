@@ -5,5 +5,5 @@ package me.sheepyang.latte.net.callback;
  */
 
 public interface IError {
-    void eonEror(int code, String msg);
+    void onError(int code, String msg);
 }
