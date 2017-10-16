@@ -18,14 +18,14 @@ import okhttp3.RequestBody;
  */
 
 public class RestClientBuilder {
-    private String mUrl;
-    private ISuccess mSuccess;
-    private IFailure mFailure;
-    private IError mError;
-    private IRequest mRequest;
-    private RequestBody mBody;
-    private LoaderStyle mLoaderStyle;
-    private Context mContext;
+    private String mUrl = null;
+    private ISuccess mSuccess = null;
+    private IFailure mFailure = null;
+    private IError mError = null;
+    private IRequest mRequest = null;
+    private RequestBody mBody = null;
+    private LoaderStyle mLoaderStyle = null;
+    private Context mContext = null;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
 
     RestClientBuilder() {
