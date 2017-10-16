@@ -3,9 +3,7 @@ package me.sheepyang.myec;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Toast;
 
-import me.sheepyang.latte.app.Latte;
 import me.sheepyang.latte.delegates.LatteDelegate;
 import me.sheepyang.latte.net.RestClient;
 import me.sheepyang.latte.net.callback.IRequest;
@@ -29,6 +27,7 @@ public class ExampleDelegate extends LatteDelegate {
     private void testRestBuilder() {
         RestClient.builder()
                 .url("http://www.4399.com")
+                .loader(getContext())
                 .request(new IRequest() {
                     @Override
                     public void onRequestStart() {
@@ -43,7 +42,7 @@ public class ExampleDelegate extends LatteDelegate {
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        Toast.makeText(Latte.getApplication(), response, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(Latte.getApplicationContext(), response, Toast.LENGTH_LONG).show();
                     }
                 })
                 .build()

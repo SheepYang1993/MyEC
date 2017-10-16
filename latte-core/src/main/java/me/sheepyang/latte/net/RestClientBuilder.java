@@ -1,11 +1,15 @@
 package me.sheepyang.latte.net;
 
+import android.content.Context;
+
 import java.util.WeakHashMap;
 
 import me.sheepyang.latte.net.callback.IError;
 import me.sheepyang.latte.net.callback.IFailure;
 import me.sheepyang.latte.net.callback.IRequest;
 import me.sheepyang.latte.net.callback.ISuccess;
+import me.sheepyang.latte.ui.LatteLoader;
+import me.sheepyang.latte.ui.LoaderStyle;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -20,6 +24,8 @@ public class RestClientBuilder {
     private IError mError;
     private IRequest mRequest;
     private RequestBody mBody;
+    private LoaderStyle mLoaderStyle;
+    private Context mContext;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
 
     RestClientBuilder() {
@@ -56,16 +62,28 @@ public class RestClientBuilder {
     }
 
     public RestClientBuilder params(WeakHashMap<String, Object> params) {
-        this.PARAMS.putAll(params);
+        PARAMS.putAll(params);
         return this;
     }
 
     public RestClientBuilder params(String key, Object value) {
-        this.PARAMS.put(key, value);
+        PARAMS.put(key, value);
+        return this;
+    }
+
+    public RestClientBuilder loader(Context context) {
+        this.mContext = context;
+        this.mLoaderStyle = LatteLoader.DEFAULT_LOADER_STYLE;
+        return this;
+    }
+
+    public RestClientBuilder loader(Context context, LoaderStyle style) {
+        this.mContext = context;
+        this.mLoaderStyle = style;
         return this;
     }
 
     public RestClient build() {
-        return new RestClient(mUrl, PARAMS, mSuccess, mFailure, mError, mRequest, mBody);
+        return new RestClient(mUrl, PARAMS, mSuccess, mFailure, mError, mRequest, mLoaderStyle, mContext, mBody);
     }
 }
