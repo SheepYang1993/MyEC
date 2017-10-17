@@ -4,7 +4,7 @@ package me.sheepyang.latte.app;
  * Created by SheepYang on 2017-10-13.
  */
 
-public enum ConfigType {
+public enum ConfigKeys {
     API_HOST,
     APPLICATION_CONTEXT,
     CONFIG_READY,

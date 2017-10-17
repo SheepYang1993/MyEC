@@ -3,7 +3,7 @@ package me.sheepyang.latte.net;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
-import me.sheepyang.latte.app.ConfigType;
+import me.sheepyang.latte.app.ConfigKeys;
 import me.sheepyang.latte.app.Latte;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -29,7 +29,7 @@ public class RestCreator {
     }
 
     private static final class RetrofitHolder {
-        private static final String BASE_HOST = (String) Latte.getConfigurations().get(ConfigType.API_HOST.name());
+        private static final String BASE_HOST = (String) Latte.getConfigurations().get(ConfigKeys.API_HOST);
         private static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_HOST)
                 .client(OkhttpHolder.OKHTTP_CLIENT)

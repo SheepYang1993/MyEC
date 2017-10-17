@@ -2,6 +2,7 @@ package me.sheepyang.latte.net;
 
 import android.content.Context;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import me.sheepyang.latte.net.callback.IError;
@@ -26,6 +27,10 @@ public class RestClientBuilder {
     private RequestBody mBody = null;
     private LoaderStyle mLoaderStyle = null;
     private Context mContext = null;
+    private File mFile = null;
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mDownloadName = null;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
 
     RestClientBuilder() {
@@ -83,7 +88,29 @@ public class RestClientBuilder {
         return this;
     }
 
+    public RestClientBuilder dir(String downloadDir) {
+        this.mDownloadDir = downloadDir;
+        return this;
+    }
+
+    public RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
+
+    public RestClientBuilder downloadName(String downloadName) {
+        this.mDownloadName = downloadName;
+        return this;
+    }
+
+    public RestClientBuilder file(File file) {
+        this.mFile = file;
+        return this;
+    }
+
     public RestClient build() {
-        return new RestClient(mUrl, PARAMS, mSuccess, mFailure, mError, mRequest, mLoaderStyle, mContext, mBody);
+        return new RestClient(mUrl, PARAMS, mSuccess, mFailure, mError,
+                mRequest, mLoaderStyle, mContext, mBody, mFile,
+                mDownloadDir, mExtension, mDownloadName);
     }
 }
