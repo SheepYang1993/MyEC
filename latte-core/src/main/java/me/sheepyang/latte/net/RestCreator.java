@@ -1,10 +1,12 @@
 package me.sheepyang.latte.net;
 
+import java.util.ArrayList;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
 import me.sheepyang.latte.app.ConfigKeys;
 import me.sheepyang.latte.app.Latte;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -39,6 +41,8 @@ public class RestCreator {
 
     private static final class OkhttpHolder {
         private static final int TIME_OUT = 60;
+        private static final ArrayList<Interceptor> INTERCEPTORS = (ArrayList<Interceptor>) Latte.getConfigurations().get(ConfigKeys.INTERCEPTORS);
+
         private static final OkHttpClient OKHTTP_CLIENT = new OkHttpClient.Builder()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .build();

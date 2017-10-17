@@ -6,6 +6,8 @@ import com.joanzapata.iconify.Iconify;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import okhttp3.Interceptor;
+
 /**
  * Created by SheepYang on 2017-10-13.
  */
@@ -13,6 +15,7 @@ import java.util.HashMap;
 public class Configurator {
     //使用WeakHashMap，一些未使用的键值对会被系统回收
     private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
 
     private Configurator() {
@@ -63,7 +66,19 @@ public class Configurator {
         return this;
     }
 
-    private final void checkConfigtrations() {
+    public final Configurator withInterceptor(Interceptor interceptor) {
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(ConfigKeys.INTERCEPTORS, INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptors(ArrayList<Interceptor> interceptors) {
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(ConfigKeys.INTERCEPTORS, INTERCEPTORS);
+        return this;
+    }
+
+    private final void checkConfigtration() {
         final boolean isReady = (boolean) LATTE_CONFIGS.get(ConfigKeys.CONFIG_READY);
         if (!isReady) {
             throw new RuntimeException("Configtration is not read, call configure");
@@ -72,8 +87,12 @@ public class Configurator {
     }
 
     @SuppressWarnings("unchecked")
-    final <T> T getConfigtrations(Enum<ConfigKeys> key) {
-        checkConfigtrations();
-        return (T) LATTE_CONFIGS.get(key.name());
+    final <T> T getConfiguration(Object key) {
+        checkConfigtration();
+        final Object value = LATTE_CONFIGS.get(key);
+        if (value == null) {
+            throw new NullPointerException(key.toString() + " IS NULL");
+        }
+        return (T) LATTE_CONFIGS.get(key);
     }
 }
