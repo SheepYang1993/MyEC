@@ -20,7 +20,7 @@ public final class Latte {
         return Configurator.getInstance().getLatteConfigtrations();
     }
 
-    public static Configurator getConfigurator() {
+    private static Configurator getConfigurator() {
         return Configurator.getInstance();
     }
 

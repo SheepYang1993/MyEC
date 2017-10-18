@@ -41,9 +41,20 @@ public class RestCreator {
 
     private static final class OkhttpHolder {
         private static final int TIME_OUT = 60;
-        private static final ArrayList<Interceptor> INTERCEPTORS = (ArrayList<Interceptor>) Latte.getConfigurations().get(ConfigKeys.INTERCEPTORS);
+        private static final ArrayList<Interceptor> INTERCEPTORS = Latte.getConfiguration(ConfigKeys.INTERCEPTORS);
+        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
 
-        private static final OkHttpClient OKHTTP_CLIENT = new OkHttpClient.Builder()
+        private static final OkHttpClient.Builder addInterceptor() {
+            if (INTERCEPTORS != null && !INTERCEPTORS.isEmpty()) {
+                for (Interceptor interceptor :
+                        INTERCEPTORS) {
+                    BUILDER.addInterceptor(interceptor);
+                }
+            }
+            return BUILDER;
+        }
+
+        private static final OkHttpClient OKHTTP_CLIENT = addInterceptor()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .build();
     }
